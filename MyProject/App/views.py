@@ -6,3 +6,8 @@ from django.http import HttpResponse
 
 def index(request):
 	return render(request,'index.html')
+
+
+# Blogs View
+def blog(request):
+	return render(request,'blogs.html')
