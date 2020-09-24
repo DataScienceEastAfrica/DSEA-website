@@ -1,2 +1,2 @@
-# DSEA-website
+# DSEA-Blog-website
 website for data science east africa
