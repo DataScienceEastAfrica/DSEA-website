@@ -7,7 +7,10 @@ __Features__
         -home page
         -blogs page
         -about 
-        - ...keep adding
+        - comments page
+        -Blog editing page
+        -Register page
+        -login page
 
 -  Backend 
 
