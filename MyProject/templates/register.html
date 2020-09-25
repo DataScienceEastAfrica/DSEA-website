@@ -5,10 +5,10 @@
 {% block title %}Home # DataScienceEastAfrica {% endblock %}
 
 {% block content %}
-    <form class="text-center border border-light p-5" action="#!" method="POST">
+    <form class="text-center border border-light p-5 mt-5" action="#!" method="POST">
         {% csrf_token %}
         <p class="h4 mb-4">Sign up Today</p>
-        {{ form }}
+        {{ form.as_p }}
         <div class="d-flex justify-content-around">
             <div>
                 <a href="">Forgot password?</a>
