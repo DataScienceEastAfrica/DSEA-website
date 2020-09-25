@@ -8,16 +8,10 @@
         {% csrf_token %}
         <p class="h4 mb-4">Sign up Today</p>
         {{ form|crispy }}
-        <div class="d-flex justify-content-around">
-            <div>
-                <a href="">Forgot password?</a>
-            </div>
-        </div>
-
         <button class="btn btn-info btn-block my-4" type="submit">Sign Up</button>
 
-        <p>Not a member?
-            <a href="">Register</a>
+        <p>Already a member?
+            <a href="{% url 'login' %}">Login</a>
         </p>
 
 
