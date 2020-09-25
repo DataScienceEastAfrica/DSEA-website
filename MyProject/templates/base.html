@@ -10,6 +10,23 @@
 	<title>{% block title %} {% endblock %}</title>
 </head>
 <body>
+	<nav class="navbar">
+		<div class="inner-width">
+		  <a href="/" class="logo"></a>
+		  <button class="menu-toggler">
+			<span></span>
+			<span></span>
+			<span></span>
+		  </button>
+		  <div class="navbar-menu">
+			<a href="#">Home</a>
+			<a href="#">Login</a>
+			<a href="#">Register</a>
+			<a href="#">Profile</a>
+			<a href="#">Logout</a>
+		  </div>
+		</div>
+	 </nav>
 	{% block content %}
 	
 	{% endblock %}
