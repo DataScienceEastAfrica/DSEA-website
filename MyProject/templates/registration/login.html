@@ -4,8 +4,8 @@
 {% block title %}Home # DataScienceEastAfrica {% endblock %}
 
 {% block content %}
-<div class="container">
-     <form class="text-center border border-light p-5 mt-5" action="#!" method="POST">
+<div class="container mb-5">
+     <form class="text-center border border-light p-5 mt-5" action="#!" method="POST" novalidate>
         {% csrf_token %}
         <p class="h4 mb-4">Log In</p>
         {{ form|crispy }}
@@ -17,15 +17,15 @@
 
         <button class="btn bg-secondary text-light btn-block my-4" type="submit">Login</button>
 
-        <p>Not a member?
+        <p class="pb-4">Not a member?
             <a href="{% url 'register' %}">Sign Up</a>
         </p>
 
 
     </form>
 </div>
-<div class="fixed-bottom">
+
     {% include 'footer.html' %}
-</div>
+
    
 {% endblock content %}
