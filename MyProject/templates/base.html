@@ -7,7 +7,6 @@
 	<!-- CSS only -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="icon"  href="{% static 'images/logo.jpg' %}">
-<link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
@@ -26,10 +25,13 @@
 		</button>
 		<div class="collapse navbar-collapse" id="nav">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a href="#" class="nav-link">Write a Blog</a></li>
+				{% if user.is_authenticated %}
+				<li class="nav-item"><a href="{% url 'post' %}" class="nav-link">Write a Blog</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">Events</a></li>
+				{% else %}
 				<li class="nav-item"><a href="{% url 'register' %}" class="nav-link">SignUp</a></li>
 				<li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+				{% endif %}
 			</ul>
 		</div>
 	</nav>
@@ -46,12 +48,34 @@
 	{% endif %}
 	
 
+	
 	{% block content %}
 
 
 	{% endblock %}
 
 		
+	</div>
+	<!-- Footer -->
+	<!-- <footer class="page-footer font-small special-color-dark pt-4">
+		<div class="container">
+		<div class="row">
+			<div class="col-md-6 mb-4">
+				<p>Lorem</p>
+			</div>
+			<div class="col-md-6 mb-4">
+				<p>Lorem</p>
+			</div>
+		</div>
+		</div>
+		<div class="footer-copyright text-center py-3">© 2020 Copyright:
+		<a href="#"> lorem</a>
+		</div>
+	</footer> -->
+  <!-- Footer -->
+	
+
+<!-- JS, Popper.js, and jQuery -->
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
