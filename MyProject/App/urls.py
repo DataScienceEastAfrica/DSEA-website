@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.urls import path
 from .views import (
     PostListView,
@@ -15,4 +16,13 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
 
+=======
+from django.urls import path, include
+from . import views 
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('Blogs/',views.blog, name = 'blog'),
+    path('accounts/', include('django.contrib.auth.urls')),
+>>>>>>> d1720999a229cb1cf707980cbf1c1e6550391a50
 ]

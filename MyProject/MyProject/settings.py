@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'App.apps.AppConfig',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -126,3 +127,18 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'   
 
 LOGIN_REDIRECT_URL = 'index'
+
+
+if not DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST_USER='danielmaina905@gmail.com'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS=True
+    EMAIL_HOST_PASSWORD='Your password'
+
+else:
+    EMAIL_BACKEND =(
+           "django.core.mail.backends.console.EmailBackend"
+        )
+
