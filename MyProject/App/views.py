@@ -53,6 +53,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(CreateView):
     model = Post
+    template_name = 'post_form.html'  
     fields = ['title', 'content']
 
     def form_valid(self, form):
