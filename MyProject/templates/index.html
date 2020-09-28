@@ -7,25 +7,27 @@
 {% block content %}
 <div class="container">
    <div class="row">
-      <div class="col-md-8 mt-5">
-         <div class="card">
-            <div class="view overlay">
-              <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
-                alt="Card image cap">
-              <a href="#!">
-                <div class="mask rgba-white-slight"></div>
-              </a>
-            </div>
-             <div class="card-body">
-          
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-              <a href="#" class="btn btn-primary">Button</a>
-          
-            </div>
-          </div>         
-      </div>
+        <div class="col-md-8 mt-5">
+          {% for post in posts %}
+            <div class="card">
+                <div class="view overlay">
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+                    alt="Card image cap">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="{% url 'post-detail' post.id %}"><h4 class="card-title">{{ post.title }}</h4></a>
+                  <p class="card-text">{{ post.content }}</p>
+                  <small class=""> By {{ post.author }}</small>
+                  <small class="text-muted">on {{ post.date_posted|date:"F d, Y" }}</small>
+                </div>
+              </div>     
+            {% endfor %}
+    
+        </div>
+
       <div class="col-md-4 mt-5">
          <h1>Top Posts</h1>
       </div>
