@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}Home # DataScienceEastAfrica {% endblock %}
+
+{% block content %}
+
+<div class="card card-cascade wider reverse">
+    <div class="view view-cascade overlay">
+      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
+        alt="Card image cap">
+    </div>
+      <div class="card-body card-body-cascade text-center">
+        <h4 class="card-title"><strong>{{ object.title }}</strong></h4>
+      <h6 class="font-weight-bold indigo-text py-2">By {{ object.author }} on {{ object.date_posted|date:"F d, Y" }} </h6>
+      <p class="card-text">{{ object.content }}</p>
+  
+    </div>
+  
+</div>
+{% endblock %}
