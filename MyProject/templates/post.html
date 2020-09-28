@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Home # DataScienceEastAfrica {% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<form class=" border border-light p-5 mt-5" action="#!" method="POST">
+        {% csrf_token %}
+        <h2 class="h4 mb-4 text-info text-center">Create Post</h2>
+        {{form.media}}
+        {{ form|crispy }}
+        <button class="btn bg-secondary btn-block my-4 text-light" type="submit">Post</button>
+    </form>
+	</div>
+	
+	
+	
+</div>
+
+{% include 'footer.html' %}
+
+    
+{% endblock content %}

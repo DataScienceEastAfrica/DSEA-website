@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm
+from .forms import CreatePostForm
 from django.views.generic import (
     ListView,
     DetailView,
@@ -85,3 +86,12 @@ class PostDeleteView(DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+def createPost(request):
+    context = {
+
+       'form':CreatePostForm,
+    }
+
+    return render(request, 'post.html',context)
