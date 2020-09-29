@@ -1,22 +1,35 @@
-{% extends 'base.html' %}
-
-
-
-{% block title %}Home # DataScienceEastAfrica {% endblock %}
-
-{% block content %}
-
+{% extends 'base.html' %} {% block title %}Home # DataScienceEastAfrica {% endblock %} {% block content %} {% load crispy_forms_tags %}
 <div class="card card-cascade wider reverse">
     <div class="view view-cascade overlay">
-      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
-        alt="Card image cap">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Card image cap">
     </div>
-      <div class="card-body card-body-cascade text-center">
-        <h4 class="card-title"><strong>{{ object.title }}</strong></h4>
-      <h6 class="font-weight-bold indigo-text py-2">By {{ object.author }} on {{ object.date_posted|date:"F d, Y" }} </h6>
-      <p class="card-text">{{ object.content }}</p>
-  
+    <div class="card-body card-body-cascade text-center">
+        <h4 class="card-title"><strong>{{ post.title }}</strong></h4>
+        <h6 class="font-weight-bold indigo-text py-2">By {{ post.author }} on {{ post.date_posted|date:"F d, Y" }} </h6>
+        <p class="card-text">{{ post.content }}</p>
+
     </div>
-  
+    {% with comments.count as total_comments %}
+    <h2>
+        {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+    {% endwith %} {% for comment in comments %}
+    <div class="comment">
+        <p class="info">
+            Comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+    </div>
+    {% empty %}
+    <p>There are no comments yet.</p>
+    {% endfor %} {% if new_comment %}
+    <h2>Your comment has been added.</h2>
+    {% else %}
+    <h2>Add a new comment</h2>
+    <form method="post">
+        {{ comment_form | crispy }} {% csrf_token %}
+        <p><input type="submit" value="Add comment"></p>
+    </form>
+    {% endif %}
 </div>
 {% endblock %}
