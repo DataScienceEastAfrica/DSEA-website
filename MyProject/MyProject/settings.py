@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'App.apps.AppConfig',
     'mdeditor',
+    'markdownify',
+    
 ]
 
 
@@ -124,11 +126,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
       
 CRISPY_TEMPLATE_PACK = 'bootstrap4'   
 
 LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL ='index'
 
 
 if not DEBUG:
@@ -175,3 +180,15 @@ MDEDITOR_CONFIGS = {
     }
     
 }
+
+
+# markdonify
+MARKDOWNIFY_STRIP = False
+MARKDOWNIFY_WHITELIST_TAGS = {
+ 'a', 'p', 
+ 'h1', 'h2', 'h3','h4', 'h5', 'h6', 'h7',
+ 'ul', 'li', 'span',
+}
+
+
+

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load markdownify %}
 
 
 
@@ -10,11 +11,11 @@
    <div class="row">
 
       <div class="col-md-8 mt-5">
-        <input type="file" name="" class="btn btn-outline-info" value="Select an Image">
+
           {% for post in posts %}
-            <div class="card">
+            <div class="card" style="width: 500px;">
                 <div class="view overlay">
-                  <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+                  <img class="card-img-top" src="{{post.cover_image.url}}"
                     alt="Card image cap">
                   <a href="#!">
                     <div class="mask rgba-white-slight"></div>
@@ -25,7 +26,7 @@
                 <div class="card-body">
                   <button type="file" class="btn btn-primary">Choose</button>
                   <a href="{% url 'post-detail' post.id %}"><h4 class="card-title">{{ post.title }}</h4></a>
-                  <p class="card-text">{{ post.content }}</p>
+                  <p class="card-text">{{ post.content|markdownify }}</p>
                   <small class=""> By {{ post.author }}</small>
                   <small class="text-muted">on {{ post.date_posted|date:"F d, Y" }}</small>
                 </div>
@@ -41,6 +42,7 @@
       </div>
    </div>
 </div>
-{% endblock %}
 {% include 'footer.html' %}
+{% endblock %}
+
 

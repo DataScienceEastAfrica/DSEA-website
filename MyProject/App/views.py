@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm
-from .forms import CreatePostForm
+
+
 from django.views.generic import (
     ListView,
     DetailView,
@@ -55,9 +56,11 @@ class PostDetailView(DetailView):
 class PostCreateView(CreateView):
     model = Post
     template_name = 'post_form.html'  
-    fields = ['title', 'content']
+    fields = ['cover_image','title', 'content']
+
 
     def form_valid(self, form):
+        
         form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -88,10 +91,7 @@ class PostDeleteView(DeleteView):
         return False
 
 
-def createPost(request):
-    context = {
 
-       'form':CreatePostForm,
-    }
+            
 
-    return render(request, 'post.html',context)
+

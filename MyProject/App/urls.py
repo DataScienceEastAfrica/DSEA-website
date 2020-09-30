@@ -5,13 +5,13 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
-    createPost
+    
 )
 from . import views 
 
 urlpatterns = [
     path('accounts/',include('django.contrib.auth.urls')),
-    path('post/', createPost,name='post'),
+    
     path('',PostListView.as_view(), name = 'index'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),

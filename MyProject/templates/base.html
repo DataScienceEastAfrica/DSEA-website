@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,9 @@
 		<div class="collapse navbar-collapse" id="nav">
 			<ul class="navbar-nav ml-auto">
 				{% if user.is_authenticated %}
-				<li class="nav-item"><a href="{% url 'post' %}" class="nav-link">Write a Blog</a></li>
+				
+				<li class="nav-item"><a href="#" class="nav-link">Write a Blog</a></li>
+				<li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">Events</a></li>
 				{% else %}
 				<li class="nav-item"><a href="{% url 'register' %}" class="nav-link">SignUp</a></li>

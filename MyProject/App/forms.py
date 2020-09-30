@@ -11,8 +11,5 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-class CreatePostForm(forms.Form):
-	cover_Image = forms.FileField()
-	Title       = forms.CharField(max_length=200,widget=forms.TextInput(attrs ={"placeholder":"Enter the Title"}))
-	content     = MDTextFormField()
+
 
