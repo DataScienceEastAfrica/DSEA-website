@@ -91,6 +91,8 @@ class PostDeleteView(DeleteView):
         return False
 
 
+def Events(request):
+    return render(request, 'events.html')
 
             
 
