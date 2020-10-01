@@ -34,7 +34,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('blog')
+            return redirect('register')
     else:
         form = UserRegisterForm()
     return render(request, 'register.html', {'form': form})
@@ -67,7 +67,7 @@ class PostCreateView(CreateView):
 
 class PostUpdateView(UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['cover_image','title', 'content']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
