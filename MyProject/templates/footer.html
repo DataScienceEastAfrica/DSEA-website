@@ -22,12 +22,12 @@
 				</div>
 			</div>
 			<div class="col-md-5 mb-4">
-				<ul class="nav nav-tabs flex-column">
-					<li class="nav-item"><a href="" class="nav-link">Home</a></li>
+				<ul class="nav nav-tabs flex-column text-center">
+					<li class="nav-item"><a href="{% url 'post-create' %}" class="nav-link">Home</a></li>
 					{% if user.is_authenticated %}
-					<li class="nav-item"><a href="{% url 'Events' %}" class="nav-link">Write A blog</a></li>
+					<li class="nav-item"><a href="" class="nav-link">Write A blog</a></li>
 					{% endif %}
-					<li class="nav-item"><a href="" class="nav-link">Events</a></li>
+					<li class="nav-item"><a href="{% url 'Events' %}" class="nav-link">Events</a></li>
 				</ul>
 			</div>
 		</div>
