@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load markdownify %}
+
+
+
+{% block title %}Home # DataScienceEastAfrica {% endblock %}
+
+{% block content %}
+<div class="container">
+   <div class="row">
+      <div class="col-md-8 mt-5">
+        <h1 class="">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+
+
+          {% for post in posts %}
+            <div class="card mb-3 ml-5 mt-2">
+                <div class="view overlay">
+                  <img class="card-img-top" src="{{post.cover_image.url}}"
+                    alt="Card image cap">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+
+
+                <div class="card-body">
+                  <button type="file" class="btn btn-primary">Choose</button>
+                  <a href="{% url 'post-detail' post.id %}"><h4 class="card-title">{{ post.title }}</h4></a>
+                  <p class="card-text">{{ post.content|markdownify }}</p>
+                  <a href="{% url 'user-posts' post.author.username %}"><small class=""> By {{ post.author }}</small></a>
+                  <small class="text-muted">on {{ post.date_posted|date:"F d, Y" }}</small>
+                </div>
+              </div>     
+            {% endfor %}
+    
+        </div>
+
+   </div>
+</div>
+{% include 'footer.html' %}
+{% endblock %}
+
+
