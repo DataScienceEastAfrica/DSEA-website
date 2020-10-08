@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect 
+from django.shortcuts import render, redirect, get_object_or_404
+
 from django.contrib.auth.models import User 
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -48,6 +49,17 @@ class PostListView(ListView):
     template_name = 'index.html'  
     context_object_name = 'posts'
     ordering = ['-date_posted']
+
+
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'user_posts.html' 
+    context_object_name = 'posts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date_posted')
 
 
 class PostDetailView(DetailView):
