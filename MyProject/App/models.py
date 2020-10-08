@@ -5,6 +5,7 @@ from django.urls import reverse
 from mdeditor.fields import MDTextField
 from PIL import Image
 
+
 class Post(models.Model):
 	cover_image = models.FileField(upload_to='ArticlePics')
 	title = models.CharField(max_length=100)
@@ -17,6 +18,17 @@ class Post(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('post-detail', kwargs={'pk': self.pk})
+
+	# def save(self,*args, **kwargs):
+	# 	super().save(*args,**kwargs)
+	# 	image= Image.open(self.cover_image.path)
+	# 	if image.width > 4000 or image.height > 100:
+	# 		output_img = (4000, 100)
+	# 		image.thumbnail(output_img)
+	# 		image.save(self.cover_image.path)
+
+
+		
 		
 
     
