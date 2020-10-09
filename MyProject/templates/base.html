@@ -25,8 +25,11 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="nav">
+			 <div class="navbar-nav mr-auto">
+					<a  href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
+				</div>
 			<ul class="navbar-nav ml-auto">
-
+                 
 				{% if user.is_authenticated %}
 				
 				<li class="nav-item"><a href="{% url 'profile' %}" class="nav-link">Profile</a></li>
@@ -35,6 +38,7 @@
 				<li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
 				<li class="nav-item"><a href="{% url 'Events' %}" class="nav-link">Events</a></li>
 				{% else %}
+				
 				<li class="nav-item"><a href="{% url 'register' %}" class="nav-link">SignUp</a></li>
 				<li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
 				<li class="nav-item"><a href="{% url 'Events' %}" class="nav-link">Events</a></li>

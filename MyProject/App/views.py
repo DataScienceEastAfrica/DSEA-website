@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.urls import reverse
 from django.contrib.auth.models import User 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm, ProfileUpdateForm,UserUpdateForm
@@ -25,6 +25,10 @@ from .models import Post
 def index(request):
 	return render(request,'index.html')
 
+def likeView(request, pk):
+    post = get_object_or_404(Post, id= request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
 
 # Blogs View
 def blog(request):
@@ -65,6 +69,14 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'  
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        stuff = get_object_or_404(Post, pk = self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        context['total_likes'] = total_likes
+
+        return context
 
 
 

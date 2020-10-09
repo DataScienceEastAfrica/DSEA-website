@@ -34,9 +34,10 @@
 
 
                 <div class="card-body">
-                  <button type="file" class="btn btn-primary">Choose</button>
+                 
                   <a href="{% url 'post-detail' post.id %}"><h4 class="card-title">{{ post.title }}</h4></a>
                   <p class="card-text">{{ post.content|markdownify }}</p>
+                  <img class="rounded-circle account-img" src="{{ post.author.profile.image.url }}">
                   <a href="{% url 'user-posts' post.author.username %}"><small class=""> By {{ post.author }}</small></a>
                   <small class="text-muted">on {{ post.date_posted|date:"F d, Y" }}</small>
                 </div>
