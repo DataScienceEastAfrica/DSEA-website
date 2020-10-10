@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse ,reverse_lazy
 from django.contrib.auth.models import User 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm, ProfileUpdateForm,UserUpdateForm
+from .forms import UserRegisterForm, ProfileUpdateForm,UserUpdateForm,CommentForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import *
 
 
@@ -80,7 +81,7 @@ class PostDetailView(DetailView):
 
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
     template_name = 'post_form.html'  
     fields = ['cover_image','title', 'content']
@@ -92,8 +93,9 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Post
+    template_name = 'post_form.html'
     fields = ['cover_image','title', 'content']
 
     def form_valid(self, form):
@@ -107,8 +109,9 @@ class PostUpdateView(UpdateView):
         return False
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Post
+    template_name = 'post_confirm_delete.html'
     success_url = '/'
 
     def test_func(self):
@@ -144,3 +147,14 @@ def profile(request):
     }   
     return render(request, 'profile.html', context)
 
+
+class PostCreateView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html' 
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    success_url  = '/'

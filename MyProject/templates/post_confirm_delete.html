@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Home # DataScienceEastAfrica {% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-7">
+			<div class="card card-body">
+				<form class=" border border-light p-5 mt-5" action="#!" method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+		        <fieldset>
+		        	<legend>Delete Post</legend>
+		        	<hr>
+		        	<h2>Are Sure you want to delete Post {{ object.title }}</h2>
+		        </fieldset>
+		        <div class="form-group">
+		        	<button class="btn btn-outline-danger" type="submit">Yes,Delete</button>
+		        	<a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
+		        </div>
+        
+        
+               </form>
+			</div>
+			
+		</div>
+	</div>
+</div>
+    
+{% endblock content %}

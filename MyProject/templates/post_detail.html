@@ -12,9 +12,13 @@
     <div class="view view-cascade overlay">
       <img class="card-img-top" src="{{object.cover_image.url}}"
         alt="Card image cap">
-
+         
     </div>
       <div class="card-body card-body-cascade text-center">
+        {% if object.author == user %}
+             <a class="btn btn-info btn-sm" href="{% url 'post-update' object.id %}">Update</a>
+             <a class="btn btn-danger btn-sm" href="{% url 'post-delete' object.id %}">Delete</a>
+          {% endif %} 
         <h4 class="card-title"><strong>{{ object.title }}</strong></h4>
       <h6 class="font-weight-bold indigo-text py-2">By {{ object.author }} on {{ object.date_posted|date:"F d, Y" }} </h6>
       <p class="card-text">{{ object.content|markdownify }}</p>
@@ -35,8 +39,26 @@
   
 </div>
   <hr>
-    <div class="card card-body">
-      <h3>Comments</h3>
+    <div class="card card-body mb-3">
+      <h3>Comments....</h3>
+      <hr> 
+      {% if not post.comments.all %}
+         No comments Yet....
+      {% else %} 
+           <a href="#">Add Comment</a>
+        {% for comment in post.comments.all %}
+          <h5 class="text-muted"><strong>
+            {{ comment.name }}
+            {{ comment.date_added }}
+          </strong></h5>
+          <p>{{ comment.body }}</p>
+
+          <hr>
+
+        {% endfor %}
+        <a href="{% url 'post-comment' post.pk %}">Add Comment</a>
+
+      {% endif %}   
     </div>
     </div>
     
