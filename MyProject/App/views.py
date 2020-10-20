@@ -8,6 +8,7 @@ from .forms import UserRegisterForm, ProfileUpdateForm,UserUpdateForm,CommentFor
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import *
+from .filters import PostFilter
 
 
 from django.views.generic import (
@@ -54,6 +55,12 @@ class PostListView(ListView):
     template_name = 'index.html'  
     context_object_name = 'posts'
     ordering = ['-date_posted']
+    paginate_by = 2
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 class UserPostListView(ListView):
@@ -148,7 +155,7 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
-class PostCreateView(CreateView):
+class PostComment(CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'add_comment.html' 
@@ -158,3 +165,7 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
     success_url  = '/'
+
+
+
+

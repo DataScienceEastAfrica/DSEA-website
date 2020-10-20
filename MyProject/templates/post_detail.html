@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="card card-cascade wider reverse mt-5 mb-3">
     <div class="view view-cascade overlay">
       <img class="card-img-top" src="{{object.cover_image.url}}"
@@ -44,8 +44,9 @@
       <hr> 
       {% if not post.comments.all %}
          No comments Yet....
+         <a href="{% url 'post-comment' post.pk %}">Add Comment</a>
       {% else %} 
-           <a href="#">Add Comment</a>
+           
         {% for comment in post.comments.all %}
           <h5 class="text-muted"><strong>
             {{ comment.name }}

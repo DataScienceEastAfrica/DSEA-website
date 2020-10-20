@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% load markdownify %}
 
@@ -7,22 +8,22 @@
 {% block title %}Home # DataScienceEastAfrica {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
    <div class="row">
     <div class="col-md-2 mt-5">
-       <form action="#!" method="Post" class="form-inline">
+       <form action="#!" method="GET">
         {% csrf_token %}
-             <div class="form-group">
-               <input type="text" class="form-control">
-               <button type="submit" style="margin-left: -2rem; outline: none;border: none;background-color: #fff;z-index: 100;"><i class="fa fa-search" aria-hidden="true"></i></button>
-             </div>
+
+             {{filter.form | crispy}}
+             <button type="submit" class="btn btn-primary"><i class="fa fa-search pr-2" aria-hidden="true"></i>Search</button>
            </form>
 
     </div>
 
       <div class="col-md-7 mt-5">
+           {% if filter.qs %}
 
-          {% for post in posts %}
+          {% for post in filter.qs %}
             <div class="card mb-3 ml-5 mt-2">
                 <div class="view overlay">
                   <img class="card-img-top" src="{{post.cover_image.url}}"
@@ -36,13 +37,24 @@
                 <div class="card-body">
                  
                   <a href="{% url 'post-detail' post.id %}"><h4 class="card-title">{{ post.title }}</h4></a>
-                  <p class="card-text">{{ post.content|markdownify }}</p>
+                  <p class="card-text">{{ post.content|markdownify |truncatewords:5|linebreaks }}</p>
                   <img class="rounded-circle account-img" src="{{ post.author.profile.image.url }}">
                   <a href="{% url 'user-posts' post.author.username %}"><small class=""> By {{ post.author }}</small></a>
                   <small class="text-muted">on {{ post.date_posted|date:"F d, Y" }}</small>
                 </div>
               </div>     
             {% endfor %}
+            {% else %}
+            <div class="container">
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-md-10">
+                  <div class="card card-body">
+                    <h4>No Post with Particlar Title</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
     
         </div>
 
@@ -54,7 +66,42 @@
       </div>
    </div>
 </div>
+
+<div class="row">
+  <div class="col-md">
+    {% if is_paginated %}
+
+   {% if page_obj.has_previous %}
+     <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+     <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+   {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+         <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+     <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+     <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+   {% endif %}
+
+ {% endif %}
+
+  </div>
+</div>
+
+
+{% if filter.qs %}
 {% include 'footer.html' %}
+{% else %}
+<div class="fixed-bottom">
+  {% include 'footer.html' %}
+</div>
+{% endif %}
 {% endblock %}
 
 
